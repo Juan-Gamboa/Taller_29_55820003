@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteBase /
+options +FollowSymLinks
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule .* Programacion_avanzada/taller_29_55820003/index.php/$0 [L]

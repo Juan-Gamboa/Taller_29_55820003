@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Prueba Api</title>
+</head>
+
+<body>
+    <h1>Test del API PHP</h1>
+    <button onclick="test()">List</button>
+    <button onclick="crear()">Create</button>
+    <button onclick="modificar()">Update</button>
+    <button onclick="eliminar()">Delete</button>
+
+    <script>
+        function test() {
+            let reponse = null;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    reponse = JSON.parse(this.response);
+                    console.log(reponse);
+                }
+            };
+            xhttp.open("GET", "http://localhost/clase/app_ejemplo_php/estudiantes", true);
+            // xhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+            xhttp.send();
+            //console.log(reponse.data[0]);
+        }
+        function crear() {
+            let reponse = null;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    reponse = JSON.parse(this.response);
+                    console.log(reponse);
+                }
+            };
+            xhttp.open("POST", "http://localhost/clase/app_ejemplo_php/estudiantes", true);
+            // xhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            let data = 'codigo=123654990';
+            data += '&nombres=Test Nombre';
+            data += '&apellidos=Test js';
+            data += '&edad=20';
+            xhttp.send(data);
+            //console.log(reponse.data[0]);
+        }
+
+        function modificar() {
+            let reponse = null;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    reponse = JSON.parse(this.response);
+                    console.log(reponse);
+                }
+            };
+            xhttp.open("PUT", "http://localhost/clase/app_ejemplo_php/estudiantes/22", true);
+            // xhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+            xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            let data = 'codigo=1236549977';
+            data += '&nombres=Test Nombre 2';
+            data += '&apellidos=Test js 2';
+            data += '&edad=20';
+            xhttp.send(data);
+            //console.log(reponse.data[0]);
+        }
+
+        function eliminar() {
+            let reponse = null;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    reponse = JSON.parse(this.response);
+                    console.log(reponse);
+                }
+            };
+            xhttp.open("DELETE", "http://localhost/clase/app_ejemplo_php/estudiantes/22", true);
+            // xhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+            xhttp.send();
+            //console.log(reponse.data[0]);
+        }
+
+
+
+    </script>
+</body>
+
+</html>
