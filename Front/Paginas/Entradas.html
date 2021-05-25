@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Entradas</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Reggae+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/Paginas.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+
+<body class = "bodyBack">
+    <div class="container-fluid">
+        <br>
+        <header class="row">
+            <h1 class="col-12 text-center">Listado de Entradas</h1>
+        </header>
+        <div id="bodyPage" class="row justify-content-center">
+            <div class="col-8">
+                <div class="contentButtons contentButtons-flex-end">
+                    <button  type="button" class="btn btn-primary" onclick="crear()">Crear</button>
+                </div>
+                <div class="row">
+                    <table id="listaEntradas" class="col-12 table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th class="tabla__th tabla__th-15W">#</th>
+                                <th class="tabla__th tabla__th-22W">Fecha</th>
+                                <th class="tabla__th tabla__th-22W">Cantidad</th>
+                                <th class="tabla__th tabla__th-15W">Persona_id</th>
+                                <th class="tabla__th tabla__th-15W">Objeto_id</th>
+                                <th class="tabla__th tabla__th-op">Operaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="12" class="text-center">No hay datos registrados</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div class="popupControll popupControll-cerrar">
+        <div id="controlForm" class="popupControll__content">
+            <h2 class="popupControll__titulo">Registrar Entrada</h2>
+            <form class="popupControll__formulario" onsubmit="saveDataForm(event)">
+                <div class="control-input">
+                    <label class="control-input__etiqueta">Fecha:</label>
+                    <input class="control-input__input" name="fecha" id="fecha" type="text" value="" required>
+                </div>
+                <div class="control-input">
+                    <label class="control-input__etiqueta">Cantidad:</label>
+                    <input class="control-input__input" name="cantidad" id="cantidad" type="text" value="" required>
+                </div>
+                <div class="control-input">
+                    <label class="control-input__etiqueta">Persona_id:</label>
+                    <input class="control-input__input" name="persona_id" id="persona_id" type="text" value="" required>
+                </div>
+                <div class="control-input">
+                    <label class="control-input__etiqueta">Objeto_id:</label>
+                    <input class="control-input__input" name="objecto_inventario_id" id="objecto_inventario_id" type="number" value="" required>
+                </div>
+                <div class="contentButtons">
+                    <button type="submit" class="contentButtons__button contentButtons__button-guardar">Guardar</button>
+                    <button type="button" class="contentButtons__button contentButtons__button-cancelar"
+                        onclick="onClickCancelar()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="popupControll popupControll-cerrar">
+        <div id="controlDetail" class="popupControll__content">
+            <h2>Detalle datos Entrada</h2>
+            <div class="control-detail">
+                <label class="control-detail__label">Id:</label>
+                <label id="idLb" class="control-detail__valor"></label>
+            </div>
+            <div class="control-detail">
+                <label class="control-detail__label">Fecha:</label>
+                <label id="fechaLb" class="control-detail__valor"></label>
+            </div>
+            <div class="control-detail">
+                <label class="control-detail__label">Cantidad:</label>
+                <label id="cantidadLb" class="control-detail__valor"></label>
+            </div>
+            <div class="control-detail">
+                <label class="control-detail__label">Persona_id:</label>
+                <label id="persona_idLb" class="control-detail__valor"></label>
+            </div>
+            <div class="control-detail">
+                <label class="control-detail__label">Objeto_id:</label>
+                <label id="objecto_inventario_idLb" class="control-detail__valor"></label>
+            </div>
+            <div class="contentButtons">
+                <button type="button" class="contentButtons__button contentButtons__button-cancelar"
+                    onclick="onClickCerrar()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popupControll popupControll-cerrar">
+        <div class="popupControll__content">
+            <h2 class="popupControll__titulo">Mensaje de confirmación</h2>
+            <p class="popupControll__msg">¿Desea eliminar este registro?</p>
+            <div class="contentButtons">
+                <button type="button" class="contentButtons__button contentButtons__button-si"
+                    onclick="onClickSi()">SI</button>
+                <button type="button" class="contentButtons__button contentButtons__button-no"
+                    onclick="onClickNo()">NO</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+    <script src="js/Entradas.js"></script>
+</body>
+

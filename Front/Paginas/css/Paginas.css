@@ -1,0 +1,151 @@
+.bodyBack{
+    background-color: beige;
+}
+.container-fluid{
+    background-color: aqua;
+    margin-top: 5%;
+    border-radius: 80px;
+}
+{
+    font-family: 'Reggae One', cursive;
+}
+
+.contentButtons {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contentButtons-flex-end {
+    justify-content: flex-end;
+    margin-right: 25px;
+}
+
+.contentButtons__button {
+    margin: 5px;
+    border-radius: 5px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.contentButtons__button:hover {
+    opacity: 0.6;
+}
+
+.contentButtons__button-guardar {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.contentButtons__button-cancelar {
+    background-color: #545454;
+    color: #fff;
+}
+
+.contentButtons__button-si {}
+
+.contentButtons__button-no {}
+
+.contentButtons__button-verde {
+    background-color: green;
+}
+
+.contentButtons__button-verde:hover {
+    background-color: rgb(0 128 0 / 46%);
+    color: #fff;
+    border: 0px;
+    opacity: 1;
+}
+
+.contentButtons__button-azul {
+    background-color: blue;
+}
+
+.contentButtons__button-rojo {
+    background-color: red;
+}
+
+.popupControll {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: rgb(255 255 255 / 70%);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popupControll-cerrar {
+    display: none;
+}
+
+.popupControll__titulo {
+    text-align: center;
+}
+
+.popupControll__content {
+    background-color: #fff;
+    padding: 50px;
+    border: 2px solid;
+    border-color: rgb(169 169 169 / 84%);
+    border-radius: 15px;
+    width: 350px;
+}
+
+.popupControll__msg {
+    text-align: center;
+}
+
+.control-input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-input__etiqueta {
+    width: 92px;
+}
+
+.control-input__input {
+    width: calc(100% - 92px);
+}
+
+.control-detail {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-detail__label {
+    width: 92px;
+    font-weight: bold;
+}
+
+.control-detail__valor {
+    width: calc(100% - 92px);
+}
+
+.tabla {
+    width: 100%;
+}
+.tabla__th-op{
+    text-align: center; 
+}
+.tabla__th-22W {
+    width: 22%;
+    text-align: center;
+}
+
+.tabla__th-15W {
+    width: 15%;
+    text-align: center;
+}
