@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Personas</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Reggae+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/Paginas.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+
+<body class = "bodyBack">
+    <div class="container-fluid">
+        <br>
+        <header class="row">
+            <h1 class="col-12 text-center">Listado de Personas</h1>
+        </header>
+        <div id="bodyPage" class="row justify-content-center">
+            <div class="col-8">
+                <div class="contentButtons contentButtons-flex-end">
+                    <button  type="button" class="btn btn-primary" onclick="crear()">Crear</button>
+                </div>
+                <div class="row">
+                    <table id="listaPersonas" class="col-12 table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th class="tabla__th tabla__th-15W">#</th>
+                                <th class="tabla__th tabla__th-22W">tipo_identificacion</th>
+                                <th class="tabla__th tabla__th-22W">numero_identificacion</th>
+                                <th class="tabla__th tabla__th-15W">nombres</th>
+                                <th class="tabla__th tabla__th-op">Operaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="12" class="text-center">No hay datos registrados</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div class="popupControll popupControll-cerrar">
+        <div id="controlForm" class="popupControll__content">
+            <h2 class="popupControll__titulo">Registrar Persona</h2>
+            <form class="popupControll__formulario" onsubmit="saveDataForm(event)">
+                <div class="control-input">
+                    <label class="control-input__etiqueta">tipo_identificacion:</label>
+                    <input class="control-input__input" name="tipo_identificacion" id="tipo_identificacion" type="text" value="" required>
+                </div>
+                <div class="control-input">
+                    <label class="control-input__etiqueta">numero_identificacion:</label>
+                    <input class="control-input__input" name="numero_identificacion" id="numero_identificacion" type="text" value="" required>
+                </div>
+                <div class="control-input">
+                    <label class="control-input__etiqueta">nombres:</label>
+                    <input class="control-input__input" name="nombres" id="nombres" type="text" value="" required>
+                </div>
+                <div class="contentButtons">
+                    <button type="submit" class="contentButtons__button contentButtons__button-guardar">Guardar</button>
+                    <button type="button" class="contentButtons__button contentButtons__button-cancelar"
+                        onclick="onClickCancelar()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="popupControll popupControll-cerrar">
+        <div id="controlDetail" class="popupControll__content">
+            <h2>Detalle datos Persona</h2>
+            <div class="control-detail">
+                <label class="control-detail__label">Id:</label>
+                <label id="idLb" class="control-detail__valor"></label>
+            </div>
+            <div class="control-detail">
+                <label class="control-detail__label">tipo_identificacion:</label>
+                <label id="tipo_identificacionLb" class="control-detail__valor"></label>
+            </div>
+            <div class="control-detail">
+                <label class="control-detail__label">numero_identificacion:</label>
+                <label id="numero_identificacionLb" class="control-detail__valor"></label>
+            </div>
+            <div class="control-detail">
+                <label class="control-detail__label">nombres:</label>
+                <label id="nombresLb" class="control-detail__valor"></label>
+            </div>
+            <div class="contentButtons">
+                <button type="button" class="contentButtons__button contentButtons__button-cancelar"
+                    onclick="onClickCerrar()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popupControll popupControll-cerrar">
+        <div class="popupControll__content">
+            <h2 class="popupControll__titulo">Mensaje de confirmación</h2>
+            <p class="popupControll__msg">¿Desea eliminar este registro?</p>
+            <div class="contentButtons">
+                <button type="button" class="contentButtons__button contentButtons__button-si"
+                    onclick="onClickSi()">SI</button>
+                <button type="button" class="contentButtons__button contentButtons__button-no"
+                    onclick="onClickNo()">NO</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+    <script src="js/Personas.js"></script>
+</body>
