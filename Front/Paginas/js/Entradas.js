@@ -142,15 +142,6 @@ function validarCantidad(){
     num1=Number(document.getElementById('cantidad').value);
     if (num1 < 0) {
         alert("No se puede registrar cantidades negativas");
-    }else{
-        if (Number.isInteger(num1)) {
-            numV=true;
-        } else {
-            numV=false;
-        }
-        if (numV == false) {
-            alert("No se puede registrar cantidades decimales");
-        }
     }
 }
 function crear() {

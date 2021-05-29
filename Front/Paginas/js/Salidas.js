@@ -172,19 +172,10 @@ function validarCantidad(){
     num1=document.getElementById('cantidad').value;
     numV=false;
     if (num1 <= 0) {
-            alert("No se puede registrar cantidades negativas");
+        alert("No se puede registrar cantidades negativas");
     }else{
-        if (Number.isInteger(Number(num1))) {
-            numV=true;
-        } else {
-            numV=false;
-        }
-        if (numV == false) {
-             alert("No se puede registrar cantidades decimales");
-        }else{
-            validarCantidadE();   
-            }
-        }   
+        validarCantidadE();   
+    }          
 }
 function validarCantidadE(){
     num1=document.getElementById('cantidad').value;
