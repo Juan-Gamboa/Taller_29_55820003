@@ -1,5 +1,9 @@
-const urlApi = "http://localhost/Programacion_avanzada/taller_29_55820003/taller_29_55820003/personas";
+const urlApi = "http://localhost/Programacion_avanzada/Taller_29_55820003/Taller_29_55820003/personas";
+const urlApiE = "http://localhost/Programacion_avanzada/Taller_29_55820003/Taller_29_55820003/entradas";
+const urlApiS = "http://localhost/Programacion_avanzada/Taller_29_55820003/Taller_29_55820003/salidas";
 let listaPersonas = [];
+let listaEntradas = [];
+let listaSalidas = [];
 let idpersona = 0;
 let persona = null;
 
@@ -17,15 +21,44 @@ function indexApi() {
     xhttp.open("GET", urlApi, true);
     xhttp.send();
 }
-indexApi();
+function indexApiE() {
+    let response = null;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            response = JSON.parse(this.response);
+            console.log(response);
+            listaEntradas = response.data;
 
+        }
+    };
+    xhttp.open("GET", urlApiE, true);
+    xhttp.send();
+}
+function indexApiS() {
+    let response = null;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            response = JSON.parse(this.response);
+            console.log(response);
+            listaSalidas = response.data;
+
+        }
+    };
+    xhttp.open("GET", urlApiS, true);
+    xhttp.send();
+}
+indexApi();
+indexApiE();
+indexApiS();
 function asignarDatosTablaHtml() {
     let html = '';
     for (let item of listaPersonas) {
         console.log(item);
         html += '<tr>';
         html += '    <td class="text-center">' + item.id + '</td>';
-        html += '    <td class="text-center">' + item.tipo_identificación + '</td>';
+        html += '    <td class="text-center">' + item.tipo_identificacion + '</td>';
         html += '    <td class="text-center">' + item.numero_identificacion +'</td>';
         html += '    <td class="text-center">' + item.nombres +'</td>';
         html += '    <td class="text-center">';
@@ -44,7 +77,7 @@ function asignarDatosTablaHtml() {
     }
     if (html == '') {
         html += '<tr>';
-        html += '    <td class="text-center">No hay datos registrados</td>';
+        html += '    <td colspan="12" class="text-center">No hay datos registrados</td>';
         html += '</tr>';
     }
     const element = document.getElementById('listaPersonas').getElementsByTagName('tbody')[0];
@@ -117,10 +150,39 @@ function modificar(id) {
         document.getElementsByClassName('popupControll')[0].classList.remove('popupControll-cerrar');
     }
 }
-
+function validarPersonasR(idpersona){
+    let itemP=idpersona;
+    console.log(itemP);
+    let val=false;
+    for (let itemE of listaEntradas){
+        if(itemP==itemE.persona_id){
+            val=true;
+            console.log(val);
+            break;
+        }else{
+            for (let itemS of listaSalidas){
+                if(itemP==itemS.persona_id){
+                    val=true;
+                    console.log(val);
+                    break;
+                }else{          
+                    val=false;
+                    console.log(val);
+                }
+            } 
+        }    
+    }
+    if(val!=false){
+        window.alert("La persona no se puede eliminar debido a que tiene un registro a su nombre");
+    }else{
+        window.alert("Esta persona no tiene registros a su nombre");
+    }
+    
+}
 function eliminar(id) {
     console.log(id);
     idpersona = id;
+    validarPersonasR(idpersona);
     document.getElementsByClassName('popupControll')[2].classList.remove('popupControll-cerrar');
 }
 

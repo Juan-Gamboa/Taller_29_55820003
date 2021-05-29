@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Personas</title>
+    <link  rel="icon"   href="resource/Persona.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Reggae+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/Paginas.css">
@@ -12,6 +13,35 @@
 </head>
 
 <body class = "bodyBack">
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/xampp/htdocs/Programacion_avanzada/Taller_29_55820003/Taller_29_55820003/Front/index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Personas.html">Listado de personas</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="Entradas.html">Listado de Entradas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Salidas.html">Listado de Salidas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Objetos.html">Objetos del Inventario</a>
+                    </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </div>
     <div class="container-fluid">
         <br>
         <header class="row">
@@ -48,15 +78,22 @@
             <h2 class="popupControll__titulo">Registrar Persona</h2>
             <form class="popupControll__formulario" onsubmit="saveDataForm(event)">
                 <div class="control-input">
-                    <label class="control-input__etiqueta">tipo_identificacion:</label>
-                    <input class="control-input__input" name="tipo_identificacion" id="tipo_identificacion" type="text" value="" required>
+                    <label class="control-input__etiqueta">Tipo
+                        identificación:</label>
+                    <select class="form-select control-input__input" name="tipo_identificacion" id="tipo_identificacion" required aria-label="Default select example">
+                        <option value="CC">CC</option>
+                        <option value="NU">NU</option>
+                        <option value="CCE">CCE</option>
+                    </select>
+                    <!-- <input class="control-input__input" name="tipo_identificacion" id="tipo_identificacion" type="text" value="" required> -->
                 </div>
                 <div class="control-input">
-                    <label class="control-input__etiqueta">numero_identificacion:</label>
+                    <label class="control-input__etiqueta">Número
+                        identificación:</label>
                     <input class="control-input__input" name="numero_identificacion" id="numero_identificacion" type="text" value="" required>
                 </div>
                 <div class="control-input">
-                    <label class="control-input__etiqueta">nombres:</label>
+                    <label class="control-input__etiqueta">Nombres:</label>
                     <input class="control-input__input" name="nombres" id="nombres" type="text" value="" required>
                 </div>
                 <div class="contentButtons">
@@ -70,27 +107,32 @@
 
     <div class="popupControll popupControll-cerrar">
         <div id="controlDetail" class="popupControll__content">
-            <h2>Detalle datos Persona</h2>
-            <div class="control-detail">
-                <label class="control-detail__label">Id:</label>
-                <label id="idLb" class="control-detail__valor"></label>
-            </div>
-            <div class="control-detail">
-                <label class="control-detail__label">tipo_identificacion:</label>
-                <label id="tipo_identificacionLb" class="control-detail__valor"></label>
-            </div>
-            <div class="control-detail">
-                <label class="control-detail__label">numero_identificacion:</label>
-                <label id="numero_identificacionLb" class="control-detail__valor"></label>
-            </div>
-            <div class="control-detail">
-                <label class="control-detail__label">nombres:</label>
-                <label id="nombresLb" class="control-detail__valor"></label>
-            </div>
-            <div class="contentButtons">
-                <button type="button" class="contentButtons__button contentButtons__button-cancelar"
-                    onclick="onClickCerrar()">Cerrar</button>
-            </div>
+            <h2 class="popupControll__titulo">Detalle datos Persona</h2>
+            <form>
+                <div class="control-detail">
+                    <label class="control-detail__label">Id:</label>
+                    <label id="idLb" class="control-detail__valor"></label>
+                </div>
+                <div class="control-detail">
+                    <label class="control-detail__label">Tipo
+                        identificación:</label>
+                    <label id="tipo_identificacionLb" class="control-detail__valor"></label>
+                </div>
+                <div class="control-detail">
+                    <label class="control-detail__label">Número
+                        identificación:</label>
+                    <label id="numero_identificacionLb" class="control-detail__valor"></label>
+                </div>
+                <div class="control-detail">
+                    <label class="control-detail__label">Nombres:</label>
+                    <label id="nombresLb" class="control-detail__valor"></label>
+                </div>
+                <div class="contentButtons">
+                    <button type="button" class="contentButtons__button contentButtons__button-cancelar"
+                        onclick="onClickCerrar()">Cerrar</button>
+                </div>
+            </form>
+
         </div>
     </div>
 

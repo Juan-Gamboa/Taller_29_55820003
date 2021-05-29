@@ -1,9 +1,8 @@
 .bodyBack{
-    background-color: beige;
+    background-color: rgb(238, 238, 221);
 }
 .container-fluid{
     background-color: aqua;
-    margin-top: 5%;
     border-radius: 80px;
 }
 {
@@ -92,7 +91,10 @@
     border: 2px solid;
     border-color: rgb(169 169 169 / 84%);
     border-radius: 15px;
-    width: 350px;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .popupControll__msg {
@@ -109,29 +111,29 @@
 }
 
 .control-input__etiqueta {
-    width: 92px;
+    width: 100px;
 }
 
 .control-input__input {
-    width: calc(100% - 92px);
+    width: calc(80% - 100px);
 }
 
 .control-detail {
     margin-top: 10px;
     margin-bottom: 10px;
     width: 100%;
-    display: flex;
+    display:flex;
     justify-content: center;
     align-items: center;
 }
 
 .control-detail__label {
-    width: 92px;
+    width: 100px;
     font-weight: bold;
 }
 
 .control-detail__valor {
-    width: calc(100% - 92px);
+    width: calc(80% - 100px);
 }
 
 .tabla {

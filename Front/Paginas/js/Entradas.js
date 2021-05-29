@@ -1,8 +1,37 @@
-const urlApi = "http://localhost/Programacion_avanzada/taller_29_55820003/taller_29_55820003/entradas";
+const urlApi = "http://localhost/Programacion_avanzada/Taller_29_55820003/Taller_29_55820003/entradas";
+const urlApiP = "http://localhost/Programacion_avanzada/Taller_29_55820003/Taller_29_55820003/personas";
+const urlApiO = "http://localhost/Programacion_avanzada/Taller_29_55820003/Taller_29_55820003/objetos";
 let listaEntradas = [];
+let listaPersonas = [];
+let listaObjetos = [];
 let identrada = 0;
 let entrada = null;
-
+function indexApiP(){
+    let response = null;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            response = JSON.parse(this.response);
+            console.log(response);
+            listaPersonas = response.data;
+        }
+    };
+    xhttp.open("GET", urlApiP, true);
+    xhttp.send();
+}
+function indexApiO(){
+    let response = null;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            response = JSON.parse(this.response);
+            console.log(response);
+            listaObjetos = response.data;
+        }
+    };
+    xhttp.open("GET", urlApiO, true);
+    xhttp.send();
+}
 function indexApi() {
     let response = null;
     var xhttp = new XMLHttpRequest();
@@ -12,13 +41,28 @@ function indexApi() {
             console.log(response);
             listaEntradas = response.data;
             asignarDatosTablaHtml();
+            asignarDatosPersonaId();
+            asignarDatosObjetosId();
         }
     };
     xhttp.open("GET", urlApi, true);
     xhttp.send();
 }
+indexApiO();
+indexApiP();
 indexApi();
-
+function asignarDatosPersonaId(){
+    for (let itemP of listaPersonas){
+        console.log(itemP.id);
+        document.getElementById("persona_id").innerHTML += "<option value='"+itemP.id+"'>"+itemP.nombres+"</option>";
+    }        
+}
+function asignarDatosObjetosId(){
+    for (let itemO of listaObjetos){
+        console.log(itemO.id);
+        document.getElementById("objecto_inventario_id").innerHTML += "<option value='"+itemO.id+"'>"+itemO.nombre+"</option>";
+    }        
+}
 function asignarDatosTablaHtml() {
     let html = '';
     for (let item of listaEntradas) {
@@ -45,7 +89,7 @@ function asignarDatosTablaHtml() {
     }
     if (html == '') {
         html += '<tr>';
-        html += '    <td class="text-center">No hay datos registrados</td>';
+        html += '    <td colspan="12" class="text-center">No hay datos registrados</td>';
         html += '</tr>';
     }
     const element = document.getElementById('listaEntradas').getElementsByTagName('tbody')[0];
@@ -68,6 +112,7 @@ function datailApi() {
 
 
 function saveDataForm(event) {
+    validarCantidad();
     event.preventDefault();
     let data = 'fecha=' + document.getElementById('fecha').value;
     data += '&cantidad=' + document.getElementById('cantidad').value;
@@ -93,7 +138,21 @@ function save(data) {
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(data);
 }
-
+function validarCantidad(){
+    num1=Number(document.getElementById('cantidad').value);
+    if (num1 < 0) {
+        alert("No se puede registrar cantidades negativas");
+    }else{
+        if (Number.isInteger(num1)) {
+            numV=true;
+        } else {
+            numV=false;
+        }
+        if (numV == false) {
+            alert("No se puede registrar cantidades decimales");
+        }
+    }
+}
 function crear() {
     identrada = 0;
     entrada = null;
@@ -101,7 +160,7 @@ function crear() {
     elementTitulo.innerText = 'Registrar datos entrada';
     document.getElementById('fecha').value = '';
     document.getElementById('cantidad').value = '';
-    document.getElementById('persona_id').value = '';
+    document.getElementById('persona_id').value='';
     document.getElementById('objecto_inventario_id').value = '';
     document.getElementsByClassName('popupControll')[0].classList.remove('popupControll-cerrar');
 }

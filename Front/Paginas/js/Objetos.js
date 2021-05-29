@@ -1,7 +1,7 @@
-const urlApi = "http://localhost/Programacion_avanzada/taller_29_55820003/taller_29_55820003/objetos_inv";
-let listaEntradas = [];
-let identrada = 0;
-let entrada = null;
+const urlApi = "http://localhost/Programacion_avanzada/Taller_29_55820003/Taller_29_55820003/objetos";
+let listaObjetos = [];
+let idobjeto = 0;
+let objeto = null;
 
 function indexApi() {
     let response = null;
@@ -10,7 +10,7 @@ function indexApi() {
         if (this.readyState == 4 && this.status == 200) {
             response = JSON.parse(this.response);
             console.log(response);
-            listaEntradas = response.data;
+            listaObjetos = response.data;
             asignarDatosTablaHtml();
         }
     };
@@ -18,17 +18,14 @@ function indexApi() {
     xhttp.send();
 }
 indexApi();
-
 function asignarDatosTablaHtml() {
     let html = '';
-    for (let item of listaEntradas) {
+    for (let item of listaObjetos) {
         console.log(item);
         html += '<tr>';
         html += '    <td class="text-center">' + item.id + '</td>';
-        html += '    <td class="text-center">' + item.fecha + '</td>';
-        html += '    <td class="text-center">' + item.cantidad +'</td>';
-        html += '    <td class="text-center">' + item.persona_id +'</td>';
-        html += '    <td class="text-center">' + item.objecto_inventario_id + '</td>';
+        html += '    <td class="text-center">' + item.nombre + '</td>';
+        html += '    <td class="text-center">' + item.descripcion +'</td>';
         html += '    <td class="text-center">';
         html += '        <div class="contentButtons">';
         html += '           <button class="btn btn-secondary" onclick="ver(' + item.id + ')">Ver detalles</button>';
@@ -45,10 +42,10 @@ function asignarDatosTablaHtml() {
     }
     if (html == '') {
         html += '<tr>';
-        html += '    <td class="text-center">No hay datos registrados</td>';
+        html += '    <td colspan="12" class="text-center">No hay datos registrados</td>';
         html += '</tr>';
     }
-    const element = document.getElementById('listaEntradas').getElementsByTagName('tbody')[0];
+    const element = document.getElementById('listaObjetos').getElementsByTagName('tbody')[0];
     element.innerHTML = html;
 }
 
@@ -59,20 +56,18 @@ function datailApi() {
         if (this.readyState == 4 && this.status == 200) {
             response = JSON.parse(this.response);
             console.log(response);
-            entrada = response.data;
+            objeto = response.data;
         }
     };
-    xhttp.open("GET", urlApi + '/' + identrada, false);
+    xhttp.open("GET", urlApi + '/' + idobjeto, false);
     xhttp.send();
 }
 
 
 function saveDataForm(event) {
     event.preventDefault();
-    let data = 'fecha=' + document.getElementById('fecha').value;
-    data += '&cantidad=' + document.getElementById('cantidad').value;
-    data += '&persona_id=' + document.getElementById('persona_id').value;
-    data += '&objecto_inventario_id=' + document.getElementById('objecto_inventario_id').value;
+    let data = 'nombre=' + document.getElementById('nombre').value;
+    data += '&descripcion=' + document.getElementById('descripcion').value;
     save(data);
 }
 
@@ -87,44 +82,40 @@ function save(data) {
             onClickCancelar();
         }
     };
-    let param = identrada > 0 ? '/' + identrada : '';
-    let metodo = identrada > 0 ? 'PUT' : 'POST';
+    let param = idobjeto > 0 ? '/' + idobjeto : '';
+    let metodo = idobjeto > 0 ? 'PUT' : 'POST';
     xhttp.open(metodo, urlApi + param, true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(data);
 }
 
 function crear() {
-    identrada = 0;
-    entrada = null;
+    idobjeto = 0;
+    objeto = null;
     const elementTitulo = document.getElementById('controlForm').getElementsByTagName('h2')[0];
-    elementTitulo.innerText = 'Registrar datos entrada';
-    document.getElementById('fecha').value = '';
-    document.getElementById('cantidad').value = '';
-    document.getElementById('persona_id').value = '';
-    document.getElementById('objecto_inventario_id').value = '';
+    elementTitulo.innerText = 'Registrar datos objeto';
+    document.getElementById('nombre').value = '';
+    document.getElementById('descripcion').value = '';
     document.getElementsByClassName('popupControll')[0].classList.remove('popupControll-cerrar');
 }
 
 function modificar(id) {
     console.log(id);
-    identrada = id;
-    entrada = null;
+    idobjeto = id;
+    objeto = null;
     const elementTitulo = document.getElementById('controlForm').getElementsByTagName('h2')[0];
-    elementTitulo.innerText = 'Modificar datos entrada';
+    elementTitulo.innerText = 'Modificar datos objeto';
     datailApi();
-    if (entrada != null) {
-        document.getElementById('fecha').value = entrada.fecha;
-        document.getElementById('cantidad').value = entrada.cantidad;
-        document.getElementById('persona_id').value = entrada.persona_id;
-        document.getElementById('objecto_inventario_id').value = entrada.objecto_inventario_id;
+    if (objeto != null) {
+        document.getElementById('nombre').value = objeto.nombre;
+        document.getElementById('descripcion').value = objeto.descripcion;
         document.getElementsByClassName('popupControll')[0].classList.remove('popupControll-cerrar');
     }
 }
 
 function eliminar(id) {
     console.log(id);
-    identrada = id;
+    idobjeto = id;
     document.getElementsByClassName('popupControll')[2].classList.remove('popupControll-cerrar');
 }
 
@@ -135,13 +126,13 @@ function onClickSi() {
         if (this.readyState == 4 && this.status == 200) {
             response = JSON.parse(this.response);
             console.log(response);
-            identrada = 0;
-            entrada = null;
+            idobjeto = 0;
+            objeto = null;
             indexApi();
             document.getElementsByClassName('popupControll')[2].classList.add('popupControll-cerrar');
         }
     };
-    xhttp.open("DELETE", urlApi + '/' + identrada, false);
+    xhttp.open("DELETE", urlApi + '/' + idobjeto, false);
     xhttp.send();
 }
 
@@ -151,15 +142,13 @@ function onClickNo() {
 
 function ver(id) {
     console.log(id);
-    identrada = id;
-    entrada = null;
+    idobjeto = id;
+    objeto = null;
     datailApi();
-    if (entrada != null) {
-        document.getElementById('idLb').innerText = entrada.id;
-        document.getElementById('fechaLb').innerText = entrada.fecha;
-        document.getElementById('cantidadLb').innerText = entrada.cantidad;
-        document.getElementById('persona_idLb').innerText = entrada.persona_id;
-        document.getElementById('objecto_inventario_idLb').innerText = entrada.objecto_inventario_id;
+    if (objeto != null) {
+        document.getElementById('idLb').innerText = objeto.id;
+        document.getElementById('nombreLb').innerText = objeto.nombre;
+        document.getElementById('descripcionLb').innerText = objeto.descripcion;
         document.getElementsByClassName('popupControll')[1].classList.remove('popupControll-cerrar');
     }
 }

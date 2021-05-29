@@ -1,0 +1,43 @@
+
+.bodyBack{
+    background-color: rgb(196, 196, 177);
+}
+.cardP{
+    margin-top: 2%;
+    position: absolute;
+    left: 2%;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+.cardO{
+    margin-top: 2%;
+    position: absolute;
+    left: 25%;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+.cardE{
+    margin-top: 2%;
+    position: absolute;
+    left: 50%;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+.cardS{
+    margin-top: 2%;
+    position: absolute;
+    left: 75%;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+.container-fluid{
+    margin-top: 5%;
+}

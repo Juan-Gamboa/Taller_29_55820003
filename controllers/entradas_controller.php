@@ -36,6 +36,7 @@ class EntradasController extends BaseController
         $model->set('cantidad',  $request['cantidad']);
         $model->set('persona_id',  $request['persona_id']);
         $model->set('objecto_inventario_id',  $request['objecto_inventario_id']);
+        
         $status = $model->save();
         return $status ? 'Registro guardado' : 'Error al guardar el registro';
     }

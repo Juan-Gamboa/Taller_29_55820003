@@ -1,9 +1,40 @@
-const urlApi = "http://localhost/Programacion_avanzada/taller_29_55820003/taller_29_55820003/salidas";
+const urlApi = "http://localhost/Programacion_avanzada/Taller_29_55820003/Taller_29_55820003/salidas";
+const urlApiE = "http://localhost/Programacion_avanzada/Taller_29_55820003/Taller_29_55820003/entradas";
+const urlApiP = "http://localhost/Programacion_avanzada/Taller_29_55820003/Taller_29_55820003/personas";
+const urlApiO = "http://localhost/Programacion_avanzada/Taller_29_55820003/Taller_29_55820003/objetos";
+let listaSalidas = [];
 let listaEntradas = [];
-let identrada = 0;
-let entrada = null;
-
-function indexApi() {
+let listaPersonas = [];
+let listaObjetos = [];
+let idsalida = 0;
+let salida = null;
+function indexApiP(){
+    let response = null;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            response = JSON.parse(this.response);
+            console.log(response);
+            listaPersonas = response.data;
+        }
+    };
+    xhttp.open("GET", urlApiP, true);
+    xhttp.send();
+}
+function indexApiO(){
+    let response = null;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            response = JSON.parse(this.response);
+            console.log(response);
+            listaObjetos = response.data;
+        }
+    };
+    xhttp.open("GET", urlApiO, true);
+    xhttp.send();
+}
+function indexApiE() {
     let response = null;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -11,17 +42,49 @@ function indexApi() {
             response = JSON.parse(this.response);
             console.log(response);
             listaEntradas = response.data;
+            
+        }
+    };
+    xhttp.open("GET", urlApiE, true);
+    xhttp.send();
+}
+function indexApi() {
+    let response = null;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            response = JSON.parse(this.response);
+            console.log(response);
+            listaSalidas = response.data;
             asignarDatosTablaHtml();
+            asignarDatosPersonaId();
+            asignarDatosObjetosId();
         }
     };
     xhttp.open("GET", urlApi, true);
     xhttp.send();
 }
 indexApi();
-
+indexApiO();
+indexApiP();
+indexApiE();
+function asignarDatosPersonaId(){
+    for (let itemP of listaPersonas){
+        console.log(itemP.id);
+        document.getElementById("persona_id").innerHTML += "<option value='"+itemP.id+"'>"+itemP.nombres+"</option>";
+    }        
+}
+function asignarDatosObjetosId(){
+    for (let itemO of listaObjetos){
+        console.log(itemO.id);
+        document.getElementById("objecto_inventario_id").innerHTML += "<option value='"+itemO.id+"'>"+itemO.nombre+"</option>";
+    }        
+}
 function asignarDatosTablaHtml() {
     let html = '';
-    for (let item of listaEntradas) {
+    let val=false;
+    let canE='';
+    for (let item of listaSalidas) {
         console.log(item);
         html += '<tr>';
         html += '    <td class="text-center">' + item.id + '</td>';
@@ -29,6 +92,17 @@ function asignarDatosTablaHtml() {
         html += '    <td class="text-center">' + item.cantidad +'</td>';
         html += '    <td class="text-center">' + item.persona_id +'</td>';
         html += '    <td class="text-center">' + item.objecto_inventario_id + '</td>';
+        for (let itemE of listaEntradas) {
+            if(item.objecto_inventario_id==itemE.objecto_inventario_id){
+                console.log(itemE.cantidad);
+                canE=itemE.cantidad;
+                val=true; 
+                break;
+            } 
+        }
+        if(val!=false){
+            html += '    <td class="text-center">' + canE + '</td>';
+        }
         html += '    <td class="text-center">';
         html += '        <div class="contentButtons">';
         html += '           <button class="btn btn-secondary" onclick="ver(' + item.id + ')">Ver detalles</button>';
@@ -45,10 +119,10 @@ function asignarDatosTablaHtml() {
     }
     if (html == '') {
         html += '<tr>';
-        html += '    <td class="text-center">No hay datos registrados</td>';
+        html += '    <td colspan="12" class="text-center">No hay datos registrados</td>';
         html += '</tr>';
     }
-    const element = document.getElementById('listaEntradas').getElementsByTagName('tbody')[0];
+    const element = document.getElementById('listaSalidas').getElementsByTagName('tbody')[0];
     element.innerHTML = html;
 }
 
@@ -59,15 +133,16 @@ function datailApi() {
         if (this.readyState == 4 && this.status == 200) {
             response = JSON.parse(this.response);
             console.log(response);
-            entrada = response.data;
+            salida = response.data;
         }
     };
-    xhttp.open("GET", urlApi + '/' + identrada, false);
+    xhttp.open("GET", urlApi + '/' + idsalida, false);
     xhttp.send();
 }
 
 
 function saveDataForm(event) {
+    validarCantidad();
     event.preventDefault();
     let data = 'fecha=' + document.getElementById('fecha').value;
     data += '&cantidad=' + document.getElementById('cantidad').value;
@@ -87,18 +162,50 @@ function save(data) {
             onClickCancelar();
         }
     };
-    let param = identrada > 0 ? '/' + identrada : '';
-    let metodo = identrada > 0 ? 'PUT' : 'POST';
+    let param = idsalida > 0 ? '/' + idsalida : '';
+    let metodo = idsalida > 0 ? 'PUT' : 'POST';
     xhttp.open(metodo, urlApi + param, true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(data);
 }
+function validarCantidad(){
+    num1=document.getElementById('cantidad').value;
+    numV=false;
+    if (num1 <= 0) {
+            alert("No se puede registrar cantidades negativas");
+    }else{
+        if (Number.isInteger(Number(num1))) {
+            numV=true;
+        } else {
+            numV=false;
+        }
+        if (numV == false) {
+             alert("No se puede registrar cantidades decimales");
+        }else{
+            validarCantidadE();   
+            }
+        }   
+}
+function validarCantidadE(){
+    num1=document.getElementById('cantidad').value;
+    idO=document.getElementById('objecto_inventario_id').value;
+    for (let itemE of listaEntradas) {
+        if(item.objecto_inventario_id==itemE.objecto_inventario_id){
+            console.log(itemE.cantidad);
+            if(num1>itemE.cantidad){
+                console.log(num1);
+                alert("La cantidad de salida"+num1+"no Puede superar la cantidad de entrada"+itemE.cantidad+"del objeto con id"+idO);
+                break;
+            }
+        } 
+    }
 
+}
 function crear() {
-    identrada = 0;
-    entrada = null;
+    idsalida = 0;
+    salida = null;
     const elementTitulo = document.getElementById('controlForm').getElementsByTagName('h2')[0];
-    elementTitulo.innerText = 'Registrar datos entrada';
+    elementTitulo.innerText = 'Registrar datos salida';
     document.getElementById('fecha').value = '';
     document.getElementById('cantidad').value = '';
     document.getElementById('persona_id').value = '';
@@ -108,23 +215,23 @@ function crear() {
 
 function modificar(id) {
     console.log(id);
-    identrada = id;
-    entrada = null;
+    idsalida = id;
+    salida = null;
     const elementTitulo = document.getElementById('controlForm').getElementsByTagName('h2')[0];
-    elementTitulo.innerText = 'Modificar datos entrada';
+    elementTitulo.innerText = 'Modificar datos salida';
     datailApi();
-    if (entrada != null) {
-        document.getElementById('fecha').value = entrada.fecha;
-        document.getElementById('cantidad').value = entrada.cantidad;
-        document.getElementById('persona_id').value = entrada.persona_id;
-        document.getElementById('objecto_inventario_id').value = entrada.objecto_inventario_id;
+    if (salida != null) {
+        document.getElementById('fecha').value = salida.fecha;
+        document.getElementById('cantidad').value = salida.cantidad;
+        document.getElementById('persona_id').value = salida.persona_id;
+        document.getElementById('objecto_inventario_id').value = salida.objecto_inventario_id;
         document.getElementsByClassName('popupControll')[0].classList.remove('popupControll-cerrar');
     }
 }
 
 function eliminar(id) {
     console.log(id);
-    identrada = id;
+    idsalida = id;
     document.getElementsByClassName('popupControll')[2].classList.remove('popupControll-cerrar');
 }
 
@@ -135,13 +242,13 @@ function onClickSi() {
         if (this.readyState == 4 && this.status == 200) {
             response = JSON.parse(this.response);
             console.log(response);
-            identrada = 0;
-            entrada = null;
+            idsalida = 0;
+            salida = null;
             indexApi();
             document.getElementsByClassName('popupControll')[2].classList.add('popupControll-cerrar');
         }
     };
-    xhttp.open("DELETE", urlApi + '/' + identrada, false);
+    xhttp.open("DELETE", urlApi + '/' + idsalida, false);
     xhttp.send();
 }
 
@@ -151,15 +258,15 @@ function onClickNo() {
 
 function ver(id) {
     console.log(id);
-    identrada = id;
-    entrada = null;
+    idsalida = id;
+    salida = null;
     datailApi();
-    if (entrada != null) {
-        document.getElementById('idLb').innerText = entrada.id;
-        document.getElementById('fechaLb').innerText = entrada.fecha;
-        document.getElementById('cantidadLb').innerText = entrada.cantidad;
-        document.getElementById('persona_idLb').innerText = entrada.persona_id;
-        document.getElementById('objecto_inventario_idLb').innerText = entrada.objecto_inventario_id;
+    if (salida != null) {
+        document.getElementById('idLb').innerText = salida.id;
+        document.getElementById('fechaLb').innerText = salida.fecha;
+        document.getElementById('cantidadLb').innerText = salida.cantidad;
+        document.getElementById('persona_idLb').innerText = salida.persona_id;
+        document.getElementById('objecto_inventario_idLb').innerText = salida.objecto_inventario_id;
         document.getElementsByClassName('popupControll')[1].classList.remove('popupControll-cerrar');
     }
 }

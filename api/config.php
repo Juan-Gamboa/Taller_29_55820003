@@ -6,7 +6,7 @@ require_once dirname(__DIR__) . '/controllers/base_controller.php';
 require_once dirname(__DIR__) . '/api/parse_array_reponse.php';
 require_once dirname(__DIR__) . '/api/response.php';
 
-$uriRelativeApp =  '/Programacion_avanzada/taller_29_55820003/taller_29_55820003/';
+$uriRelativeApp =  '/Programacion_avanzada/Taller_29_55820003/Taller_29_55820003/';
 
 $uriClass = [
     "entradas" => [

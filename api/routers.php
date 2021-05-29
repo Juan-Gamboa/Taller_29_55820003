@@ -12,7 +12,6 @@ class Routers
         $url = $GLOBALS['getArrayUrlCurrent']();
         $uriClass = $GLOBALS['uriClass'][$url[0]];
         $namespaceController = $GLOBALS['controllers'][$url[0]];
-
         require_once dirname(__DIR__) . '/' .  $uriClass['model'];
         require_once dirname(__DIR__) . '/' .  $uriClass['controller'];
 
